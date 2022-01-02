@@ -1,0 +1,60 @@
+```
+class Solution {
+    int resultCount = 0;
+    int target = 0;
+    
+    public int solution(int[] numbers, int target) {
+        // 이 수를 적절히 더하거나 빼서 타겟 넘버를 만들려고 합니다. 
+        
+        // 다 더해서 타겟 넘보 보다 큰지 확인
+        
+        // if 클경우 닶 없음(없다고 보면됨)
+        // if 작을경우 빼기를 함
+            // 빼야하는 총 값을 구하기
+            // 빼기가 하나일 경우
+            // 빼기가 두개일 경우
+
+        this.target = target;
+        
+        boolean[] visited = new boolean[numbers.length];
+        
+        int maxCount = numbers.length;
+        // 마이너스 개수를 늘려가면서 값을 구하기
+        for (int minusCount = 0; minusCount <= maxCount; minusCount++) {
+            combination(numbers, visited, 0, minusCount);
+        }
+        
+        return this.resultCount;
+    }
+    
+    private void combination(int[] numbers, boolean[] visited, int start, int minusCount) {
+        if(minusCount == 0) {
+            count(numbers, visited);
+            return;
+        }
+
+        for(int i = start; i < numbers.length; i++) {
+            visited[i] = true;
+            combination(numbers, visited, i + 1, minusCount - 1);
+            visited[i] = false;
+        }
+    }
+    
+    private void count(int[] numbers, boolean[] visited) {
+        int sumValue = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            if (visited[i]) {
+                // System.out.print(numbers[i] + " ");
+                sumValue -= numbers[i];
+            } else {
+                sumValue += numbers[i];
+            }
+        }
+        
+        if (this.target == sumValue) {
+            this.resultCount++;
+        }
+        // System.out.println("sumValue: " + sumValue);
+    }
+}
+```
